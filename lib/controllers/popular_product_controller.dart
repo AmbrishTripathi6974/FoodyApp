@@ -2,9 +2,9 @@ import 'package:foody/data/repository/popular_product_repo.dart';
 import 'package:foody/models/products_model.dart';
 import 'package:get/get.dart';
 
-class PopularProductContoller extends GetxController{
+class PopularProductController extends GetxController{
   final PopularProductRepo popularProductRepo;
-  PopularProductContoller({required this.popularProductRepo});
+  PopularProductController({required this.popularProductRepo});
   List<dynamic> _popularProductList = [];
   List<dynamic> get popularProductList => _popularProductList;
 

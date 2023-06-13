@@ -15,6 +15,6 @@ Future<void> init() async {
   print("Get Repo");
 
   //controllers
-  Get.lazyPut(() => PopularProductContoller(popularProductRepo: Get.find()));
+  Get.lazyPut(() => PopularProductController(popularProductRepo: Get.find()));
   print("Get Controller");
 }

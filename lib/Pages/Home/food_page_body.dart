@@ -48,7 +48,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       children: [
         // Slider Section
 
-        GetBuilder<PopularProductContoller>(builder: (popularProducts) {
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
           return popularProducts.isLoaded
               ? Container(
                   height: Dimensions.pageView,
@@ -67,7 +67,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
         // Dots
 
-        GetBuilder<PopularProductContoller>(builder: (popularProducts) {
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
           return DotsIndicator(
             dotsCount: popularProducts.popularProductList.isEmpty
                 ? 1
