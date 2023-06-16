@@ -1,6 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:foody/Pages/Food/recommended_food_detail.dart';
 import 'package:foody/controllers/popular_product_controller.dart';
+import 'package:foody/controllers/recommended_product_controller.dart';
 import 'package:foody/models/products_model.dart';
 import 'package:foody/utils/app_constants.dart';
 import 'package:foody/utils/dimension.dart';
@@ -82,7 +84,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           );
         }),
 
-        // Popular Section
+        // Recommended Section
 
         SizedBox(
           height: Dimensions.height20,
@@ -125,97 +127,110 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         SizedBox(
           height: Dimensions.height20,
         ),
+
         // List of food and images
 
-        ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(
-                  left: Dimensions.width20,
-                  right: Dimensions.width20,
-                  bottom: Dimensions.height10,
-                ),
-                child: Row(
-                  children: [
-                    // image section
-                    Container(
-                      width: Dimensions.listViewImgSize,
-                      height: Dimensions.listViewImgSize,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radius20),
-                        color: Colors.white30,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage("images/food2.jpg"),
-                        ),
+        GetBuilder<RecommendedProductController>(builder: (recommendedProduct) {
+          return recommendedProduct.isLoaded
+              ? ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: recommendedProduct.recommendedProductList.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.only(
+                        left: Dimensions.width20,
+                        right: Dimensions.width20,
+                        bottom: Dimensions.height10,
                       ),
-                    ),
-
-                    // Text Section
-
-                    Expanded(
-                      child: Container(
-                        height: Dimensions.listViewTextSize,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(Dimensions.radius20),
-                            bottomRight: Radius.circular(Dimensions.radius20),
+                      child: Row(
+                        children: [
+                          // image section
+                          Container(
+                            width: Dimensions.listViewImgSize,
+                            height: Dimensions.listViewImgSize,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radius20),
+                              color: Colors.white30,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(AppConstants.BASE_URL +
+                                    AppConstants.UPLOAD_URL +
+                                    recommendedProduct.recommendedProductList[index].img!),
+                              ),
+                            ),
                           ),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: Dimensions.width10,
-                              right: Dimensions.width10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              BigText(text: "Nutritious fruit meal in China"),
-                              SizedBox(
-                                height: Dimensions.height10,
+
+                          // Text Section
+
+                          Expanded(
+                            child: Container(
+                              height: Dimensions.listViewTextSize,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topRight:
+                                      Radius.circular(Dimensions.radius20),
+                                  bottomRight:
+                                      Radius.circular(Dimensions.radius20),
+                                ),
+                                color: Colors.white,
                               ),
-                              SmallText(text: "With chinese characteristics"),
-                              SizedBox(
-                                height: Dimensions.height10,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: Dimensions.width10,
+                                    right: Dimensions.width10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    BigText(
+                                        text: "Nutritious fruit meal in China"),
+                                    SizedBox(
+                                      height: Dimensions.height10,
+                                    ),
+                                    SmallText(
+                                        text: "With chinese characteristics"),
+                                    SizedBox(
+                                      height: Dimensions.height10,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        IconAndTextWidget(
+                                            icon: Icons.circle,
+                                            text: "Normal",
+                                            iconColor: AppColors.iconColor1),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        IconAndTextWidget(
+                                            icon: EvaIcons.pinOutline,
+                                            text: "1.7km",
+                                            iconColor: AppColors.mainColor),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        IconAndTextWidget(
+                                            icon: EvaIcons.clockOutline,
+                                            text: "32min",
+                                            iconColor: AppColors.iconColor2),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconAndTextWidget(
-                                      icon: Icons.circle,
-                                      text: "Normal",
-                                      iconColor: AppColors.iconColor1),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  IconAndTextWidget(
-                                      icon: EvaIcons.pinOutline,
-                                      text: "1.7km",
-                                      iconColor: AppColors.mainColor),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  IconAndTextWidget(
-                                      icon: EvaIcons.clockOutline,
-                                      text: "32min",
-                                      iconColor: AppColors.iconColor2),
-                                ],
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }),
+                    );
+                  })
+              : CircularProgressIndicator(
+                  color: AppColors.mainColor,
+                );
+        })
       ],
     );
   }
@@ -262,7 +277,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                    AppConstants.BASE_URL + "/upload/" + popularProduct.img!),
+                    AppConstants.BASE_URL + AppConstants.UPLOAD_URL + popularProduct.img!),
               ),
             ),
           ),
