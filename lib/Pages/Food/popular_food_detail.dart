@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:foody/main.dart';
 import 'package:foody/utils/dimension.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:foody/widgets/app_column.dart';
 import 'package:foody/widgets/expandable_text_widget.dart';
+import 'package:get/get.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_icon.dart';
 import '../../widgets/big_text.dart';
@@ -40,8 +42,13 @@ class PopularFoodDetail extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(
-                  icon: EvaIcons.arrowBackOutline,
+                GestureDetector(
+                  onTap:(){
+                    Get.to(() => MyHomePage());
+                  },
+                  child: AppIcon(
+                    icon: EvaIcons.arrowBackOutline,
+                  ),
                 ),
                 AppIcon(
                   icon: EvaIcons.shoppingCartOutline,

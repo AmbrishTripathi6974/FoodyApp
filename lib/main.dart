@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foody/controllers/recommended_product_controller.dart';
+import 'package:foody/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'ClassBuilder.dart';
 import 'Pages/Authentication/Auth.dart';
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
+      initialRoute: RouteHelper.initial,
+      getPages: RouteHelper.routes,
     );
   }
 }

@@ -1,9 +1,11 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:foody/Pages/Food/popular_food_detail.dart';
 import 'package:foody/Pages/Food/recommended_food_detail.dart';
 import 'package:foody/controllers/popular_product_controller.dart';
 import 'package:foody/controllers/recommended_product_controller.dart';
 import 'package:foody/models/products_model.dart';
+import 'package:foody/routes/route_helper.dart';
 import 'package:foody/utils/app_constants.dart';
 import 'package:foody/utils/dimension.dart';
 import 'package:foody/widgets/app_column.dart';
@@ -54,13 +56,18 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           return popularProducts.isLoaded
               ? Container(
                   height: Dimensions.pageView,
-                  child: PageView.builder(
-                      controller: pageController,
-                      itemCount: popularProducts.popularProductList.length,
-                      itemBuilder: (context, position) {
-                        return _buildPageItem(position,
-                            popularProducts.popularProductList[position]);
-                      }),
+                  child: GestureDetector(
+                    onTap: (){
+                      Get.toNamed(RouteHelper.popularFood);
+                    },
+                    child: PageView.builder(
+                        controller: pageController,
+                        itemCount: popularProducts.popularProductList.length,
+                        itemBuilder: (context, position) {
+                          return _buildPageItem(position,
+                              popularProducts.popularProductList[position]);
+                        }),
+                  ),
                 )
               : CircularProgressIndicator(
                   color: AppColors.mainColor,
