@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:foody/controllers/popular_product_controller.dart';
 import 'package:foody/main.dart';
+import 'package:foody/utils/app_constants.dart';
 import 'package:foody/utils/dimension.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:foody/widgets/app_column.dart';
@@ -10,10 +12,15 @@ import '../../widgets/app_icon.dart';
 import '../../widgets/big_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({super.key});
+  int pageId;
+  PopularFoodDetail({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
+    print("page is id " + pageId.toString());
+    print("product name is " + product.name.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -28,7 +35,9 @@ class PopularFoodDetail extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("images/food3.jpg"),
+                  image: NetworkImage(AppConstants.BASE_URL +
+                      AppConstants.UPLOAD_URL +
+                      product.img!),
                 ),
               ),
             ),
@@ -43,7 +52,7 @@ class PopularFoodDetail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap:(){
+                  onTap: () {
                     Get.to(() => MyHomePage());
                   },
                   child: AppIcon(
@@ -80,18 +89,18 @@ class PopularFoodDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppColumn(
-                    text: "Chinese side",
+                    text: product.name!,
                   ),
                   SizedBox(
                     height: Dimensions.height20,
                   ),
                   BigText(text: "Introduce"),
-                  SizedBox(height: Dimensions.height20,),
+                  SizedBox(
+                    height: Dimensions.height20,
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
-                      child: ExpandableTextWidget(
-                          text:
-                              "Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors. "),
+                      child: ExpandableTextWidget(text: product.description!),
                     ),
                   ),
                 ],
@@ -100,72 +109,85 @@ class PopularFoodDetail extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        height: Dimensions.bottomHeightBar,
-        padding: EdgeInsets.only(
-          top: Dimensions.height30,
-          bottom: Dimensions.height30,
-          left: Dimensions.width20,
-          right: Dimensions.width20,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.buttonBackgroundColor,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(Dimensions.radius20 * 2),
-            topLeft: Radius.circular(Dimensions.radius20 * 2),
+      bottomNavigationBar:
+          GetBuilder<PopularProductController>(builder: (PopularProduct) {
+        return Container(
+          height: Dimensions.bottomHeightBar,
+          padding: EdgeInsets.only(
+            top: Dimensions.height30,
+            bottom: Dimensions.height30,
+            left: Dimensions.width20,
+            right: Dimensions.width20,
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                  top: Dimensions.height20,
-                  bottom: Dimensions.height20,
-                  left: Dimensions.width20,
-                  right: Dimensions.width20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    EvaIcons.minusCircleOutline,
-                    color: AppColors.signColor,
-                  ),
-                  SizedBox(
-                    width: Dimensions.width10 / 2,
-                  ),
-                  BigText(text: "0"),
-                  SizedBox(
-                    width: Dimensions.width10 / 2,
-                  ),
-                  Icon(
-                    EvaIcons.plusCircleOutline,
-                    color: AppColors.signColor,
-                  ),
-                ],
-              ),
+          decoration: BoxDecoration(
+            color: AppColors.buttonBackgroundColor,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(Dimensions.radius20 * 2),
+              topLeft: Radius.circular(Dimensions.radius20 * 2),
             ),
-            Container(
-              padding: EdgeInsets.only(
-                  top: Dimensions.height20,
-                  bottom: Dimensions.height20,
-                  left: Dimensions.width20,
-                  right: Dimensions.width20),
-              child: BigText(
-                text: "\$10 | Add to cart",
-                color: Colors.white,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                    top: Dimensions.height20,
+                    bottom: Dimensions.height20,
+                    left: Dimensions.width20,
+                    right: Dimensions.width20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        PopularProduct.setQuantity(false);
+                      },
+                      child: Icon(
+                        EvaIcons.minusCircleOutline,
+                        color: AppColors.signColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: Dimensions.width10 / 2,
+                    ),
+                    BigText(text: PopularProduct.quantity.toString()),
+                    SizedBox(
+                      width: Dimensions.width10 / 2,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        PopularProduct.setQuantity(true);
+                      },
+                      child: Icon(
+                        EvaIcons.plusCircleOutline,
+                        color: AppColors.signColor,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: AppColors.mainColor,
+              Container(
+                padding: EdgeInsets.only(
+                    top: Dimensions.height20,
+                    bottom: Dimensions.height20,
+                    left: Dimensions.width20,
+                    right: Dimensions.width20),
+                child: BigText(
+                  text: "\$ ${product.price} | Add to cart",
+                  color: Colors.white,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  color: AppColors.mainColor,
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

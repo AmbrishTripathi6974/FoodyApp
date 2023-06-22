@@ -1,26 +1,39 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:foody/controllers/recommended_product_controller.dart';
+import 'package:foody/routes/route_helper.dart';
+import 'package:foody/utils/app_constants.dart';
 import 'package:foody/utils/colors.dart';
 import 'package:foody/utils/dimension.dart';
 import 'package:foody/widgets/app_icon.dart';
 import 'package:foody/widgets/big_text.dart';
+import 'package:get/get.dart';
 import 'package:foody/widgets/expandable_text_widget.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({super.key});
+  final int pageId;
+  const RecommendedFoodDetail({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 75,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: EvaIcons.close),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RouteHelper.getinitial());
+                  },
+                  child: AppIcon(icon: EvaIcons.close),
+                ),
                 AppIcon(icon: EvaIcons.shoppingCartOutline),
               ],
             ),
@@ -29,7 +42,7 @@ class RecommendedFoodDetail extends StatelessWidget {
               child: Container(
                 child: Center(
                     child:
-                        BigText(size: Dimensions.font26, text: "Chinese Side")),
+                        BigText(size: Dimensions.font26, text: product.name!)),
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
                 decoration: BoxDecoration(
@@ -44,8 +57,8 @@ class RecommendedFoodDetail extends StatelessWidget {
             backgroundColor: AppColors.yellowColor,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "images/food3.jpg",
+              background: Image.network(
+                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
@@ -55,9 +68,7 @@ class RecommendedFoodDetail extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  child: ExpandableTextWidget(
-                      text:
-                          " Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors.Biryani is a popular and flavorful rice dish that originated in the Indian subcontinent. It is a harmonious blend of aromatic spices, fragrant rice, and succulent meat or vegetables. Biryani is known for its exquisite taste, vibrant colors, and distinct layers of flavors."),
+                  child: ExpandableTextWidget(text: product.description!),
                   margin: EdgeInsets.only(
                     left: Dimensions.width20,
                     right: Dimensions.width20,
@@ -87,7 +98,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                     iconColor: Colors.white,
                     icon: EvaIcons.minus),
                 BigText(
-                  text: "\$12.88 " + " X " + " 0 ",
+                  text: "\$ ${product.price!} X 0 ",
                   color: AppColors.mainBlackColor,
                   size: Dimensions.font26,
                 ),
@@ -127,7 +138,10 @@ class RecommendedFoodDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(Dimensions.radius20),
                     color: Colors.white,
                   ),
-                  child: Icon(EvaIcons.heart, color: AppColors.mainColor,),
+                  child: Icon(
+                    EvaIcons.heart,
+                    color: AppColors.mainColor,
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.only(
