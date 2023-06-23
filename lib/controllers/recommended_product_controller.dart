@@ -2,7 +2,6 @@ import 'package:foody/data/repository/popular_product_repo.dart';
 import 'package:foody/models/products_model.dart';
 import 'package:foody/data/api/api_client.dart';
 import 'package:get/get.dart';
-
 import '../data/repository/reommended_product_repo.dart';
 
 class RecommendedProductController extends GetxController{
@@ -17,7 +16,6 @@ class RecommendedProductController extends GetxController{
   Future<void> getRecommendedProductList() async {
    Response response = await recommendedProductRepo.getRecommendedProductList();
    if(response.statusCode == 200){
-    print("got products recommended");
     _recommendedProductList = [];
     _recommendedProductList.addAll(Product.fromJson(response.body).products as Iterable);
     print(_recommendedProductList);

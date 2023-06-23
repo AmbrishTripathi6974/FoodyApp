@@ -7,6 +7,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:foody/widgets/app_column.dart';
 import 'package:foody/widgets/expandable_text_widget.dart';
 import 'package:get/get.dart';
+import '../../controllers/cart_controller.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_icon.dart';
 import '../../widgets/big_text.dart';
@@ -19,9 +20,8 @@ class PopularFoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
-    print("page is id " + pageId.toString());
-    print("product name is " + product.name.toString());
-    return Scaffold(
+        Get.find<PopularProductController>().initProduct(Get.find<CartController>());
+            return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
@@ -175,9 +175,14 @@ class PopularFoodDetail extends StatelessWidget {
                     bottom: Dimensions.height20,
                     left: Dimensions.width20,
                     right: Dimensions.width20),
-                child: BigText(
-                  text: "\$ ${product.price} | Add to cart",
-                  color: Colors.white,
+                child: GestureDetector(
+                  onTap: (){
+                    PopularProduct.addItems(product);
+                  },
+                  child: BigText(
+                    text: "\$ ${product.price} | Add to cart",
+                    color: Colors.white,
+                  ),
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Dimensions.radius20),
