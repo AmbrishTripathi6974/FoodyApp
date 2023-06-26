@@ -20,8 +20,9 @@ class PopularFoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
-        Get.find<PopularProductController>().initProduct(product, Get.find<CartController>());
-            return Scaffold(
+    Get.find<PopularProductController>()
+        .initProduct(product, Get.find<CartController>());
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
@@ -59,9 +60,37 @@ class PopularFoodDetail extends StatelessWidget {
                     icon: EvaIcons.arrowBackOutline,
                   ),
                 ),
-                AppIcon(
-                  icon: EvaIcons.shoppingCartOutline,
-                ),
+                GetBuilder<PopularProductController>(
+                    builder: (popularProductController) {
+                  return Stack(
+                    children: [
+                      AppIcon(
+                        icon: EvaIcons.shoppingCartOutline,
+                      ),
+                      Get.find<PopularProductController>().totalItems >= 1
+                          ? Positioned(
+                              right: 0,
+                              top: 0,
+                              child: AppIcon(
+                                icon: EvaIcons.radioButtonOffOutline,
+                                size: 20,
+                                iconColor: Colors.transparent,
+                                backgroundColor: AppColors.mainColor,
+                              ),
+                            )
+                          : Container(),
+                      Get.find<PopularProductController>().totalItems >= 1
+                          ? Positioned(
+                              right: 6,
+                              top: 3,
+                              child: BigText(text: Get.find<PopularProductController>().totalItems.toString(),
+                              size: 12,
+                              color: Colors.white,),
+                            )
+                          : Container(),
+                    ],
+                  );
+                }),
               ],
             ),
           ),
@@ -110,7 +139,7 @@ class PopularFoodDetail extends StatelessWidget {
         ],
       ),
       bottomNavigationBar:
-          GetBuilder<PopularProductController>(builder: (PopularProduct) {
+          GetBuilder<PopularProductController>(builder: (popularProduct) {
         return Container(
           height: Dimensions.bottomHeightBar,
           padding: EdgeInsets.only(
@@ -143,7 +172,7 @@ class PopularFoodDetail extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        PopularProduct.setQuantity(false);
+                        popularProduct.setQuantity(false);
                       },
                       child: Icon(
                         EvaIcons.minusCircleOutline,
@@ -153,13 +182,13 @@ class PopularFoodDetail extends StatelessWidget {
                     SizedBox(
                       width: Dimensions.width10 / 2,
                     ),
-                    BigText(text: PopularProduct.quantity.toString()),
+                    BigText(text: popularProduct.inCartItems.toString()),
                     SizedBox(
                       width: Dimensions.width10 / 2,
                     ),
                     GestureDetector(
                       onTap: () {
-                        PopularProduct.setQuantity(true);
+                        popularProduct.setQuantity(true);
                       },
                       child: Icon(
                         EvaIcons.plusCircleOutline,
@@ -176,8 +205,8 @@ class PopularFoodDetail extends StatelessWidget {
                     left: Dimensions.width20,
                     right: Dimensions.width20),
                 child: GestureDetector(
-                  onTap: (){
-                    PopularProduct.addItems(product);
+                  onTap: () {
+                    popularProduct.addItems(product);
                   },
                   child: BigText(
                     text: "\$ ${product.price} | Add to cart",
