@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foody/controllers/cart_controller.dart';
 import 'package:foody/data/repository/popular_product_repo.dart';
+import 'package:foody/models/cart_model.dart';
 import 'package:foody/models/products_model.dart';
 import 'package:foody/data/api/api_client.dart';
 import 'package:foody/utils/colors.dart';
@@ -50,6 +51,10 @@ class PopularProductController extends GetxController {
     if ((_inCartItems + quantity) < 0) {
       Get.snackbar("Item count", "You can't reduce more !",
           backgroundColor: AppColors.mainColor, colorText: Colors.white);
+      if (_inCartItems > 0) {
+        _quantity = -_inCartItems;
+        return _quantity;
+      }
       return 0;
     } else if ((_inCartItems + quantity) > 20) {
       Get.snackbar("Item count", "You can't add more !",
@@ -90,5 +95,9 @@ class PopularProductController extends GetxController {
 
   int get totalItems {
     return _cart.totalItems;
+  }
+
+  List<CartModel> get getItems{
+    return _cart.getItems;
   }
 }
