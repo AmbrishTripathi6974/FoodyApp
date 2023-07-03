@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foody/Pages/Food/popular_food_detail.dart';
 import 'package:foody/Pages/Food/recommended_food_detail.dart';
+import 'package:foody/Pages/cart/cart_page.dart';
 import 'package:foody/main.dart';
 import 'package:get/get.dart';
 
@@ -8,10 +9,13 @@ class RouteHelper {
   static const String initial = "/";
   static const String popularFood = "/popular-food";
   static const String recommendedFood = "/recommended-food";
+  static const String cartPage = "/cart-page";
 
   static String getinitial() => '$initial';
   static String getPopularFood(int pageId) => '$popularFood?pageId=$pageId';
-  static String getRecommendedFood(int pageId) => '$recommendedFood? pageId = $pageId';
+  static String getRecommendedFood(int pageId) =>
+      '$recommendedFood? pageId = $pageId';
+  static String getCartPage() => '$cartPage';
 
   static List<GetPage> routes = [
     GetPage(name: initial, page: () => MyHomePage()),
@@ -36,6 +40,13 @@ class RouteHelper {
         } else {
           return Container();
         }
+      },
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: cartPage,
+      page: () {
+        return CartPage();
       },
       transition: Transition.fadeIn,
     ),

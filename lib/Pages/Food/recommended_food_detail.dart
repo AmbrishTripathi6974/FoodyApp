@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:foody/Pages/cart/cart_page.dart';
 import 'package:foody/controllers/popular_product_controller.dart';
 import 'package:foody/controllers/recommended_product_controller.dart';
 import 'package:foody/routes/route_helper.dart';
@@ -40,39 +41,49 @@ class RecommendedFoodDetail extends StatelessWidget {
                   child: AppIcon(icon: EvaIcons.close),
                 ),
                 // AppIcon(icon: EvaIcons.shoppingCartOutline),
-                GetBuilder<PopularProductController>(
-                    builder: (popularProductController) {
-                  return Stack(
-                    children: [
-                      AppIcon(
-                        icon: EvaIcons.shoppingCartOutline,
-                      ),
-                      Get.find<PopularProductController>().totalItems >= 1
-                          ? Positioned(
-                              right: 0,
-                              top: 0,
-                              child: AppIcon(
-                                icon: EvaIcons.radioButtonOffOutline,
-                                size: 20,
-                                iconColor: Colors.transparent,
-                                backgroundColor: AppColors.mainColor,
-                              ),
-                            )
-                          : Container(),
-                      Get.find<PopularProductController>().totalItems >= 1
-                          ? Positioned(
-                              right: 6,
-                              top: 3,
-                              child: BigText(
-                                text: Get.find<PopularProductController>()
-                                    .totalItems
-                                    .toString(),
-                                size: 12,
-                                color: Colors.white,
-                              ),
-                            )
-                          : Container(),
-                    ],
+                GetBuilder<PopularProductController>(builder: (controller) {
+                  return GestureDetector(
+                    onTap: () {
+                      if (controller.totalItems >= 1) {
+                        Get.toNamed(RouteHelper.getCartPage());
+                      } else {
+                        Get.snackbar("Item count", "You can't add more !",
+                            backgroundColor: AppColors.mainColor,
+                            colorText: Colors.white);
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        AppIcon(
+                          icon: EvaIcons.shoppingCartOutline,
+                        ),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 0,
+                                top: 0,
+                                child: AppIcon(
+                                  icon: EvaIcons.radioButtonOffOutline,
+                                  size: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: AppColors.mainColor,
+                                ),
+                              )
+                            : Container(),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 6,
+                                top: 3,
+                                child: BigText(
+                                  text: Get.find<PopularProductController>()
+                                      .totalItems
+                                      .toString(),
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
                   );
                 }),
               ],
