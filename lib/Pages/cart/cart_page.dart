@@ -68,8 +68,9 @@ class CartPage extends StatelessWidget {
                   removeTop: true,
                   child: GetBuilder<CartController>(
                     builder: (cartController) {
+                      var _cartList = cartController.getItems;
                       return ListView.builder(
-                          itemCount: cartController.getItems.length,
+                          itemCount: _cartList.length,
                           itemBuilder: (_, index) {
                             return Container(
                               width: double.maxFinite,
@@ -85,7 +86,7 @@ class CartPage extends StatelessWidget {
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(
-                                          AppConstants.BASE_URL + AppConstants.UPLOAD_URL + CartController.getItems[index].img!,
+                                          AppConstants.BASE_URL + AppConstants.UPLOAD_URL + cartController.getItems[index].img!,
                                         ),
                                       ),
                                       borderRadius: BorderRadius.circular(
@@ -132,8 +133,7 @@ class CartPage extends StatelessWidget {
                                                 children: [
                                                   GestureDetector(
                                                     onTap: () {
-                                                      popularProduct
-                                                          .setQuantity(false);
+                                                      cartController.addItems(_cartList[index].product!, -1);
                                                     },
                                                     child: Icon(
                                                       EvaIcons.minusCircleOutline,
@@ -144,16 +144,13 @@ class CartPage extends StatelessWidget {
                                                     width: Dimensions.width10 / 2,
                                                   ),
                                                   BigText(
-                                                      text: popularProduct
-                                                          .inCartItems
-                                                          .toString()),
+                                                      text: _cartList[index].quantity.toString()),
                                                   SizedBox(
                                                     width: Dimensions.width10 / 2,
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
-                                                      popularProduct
-                                                          .setQuantity(true);
+                                                      cartController.addItems(_cartList[index].product!, 1);
                                                     },
                                                     child: Icon(
                                                       EvaIcons.plusCircleOutline,
