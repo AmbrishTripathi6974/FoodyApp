@@ -12,9 +12,8 @@ class RouteHelper {
   static const String cartPage = "/cart-page";
 
   static String getinitial() => '$initial';
-  static String getPopularFood(int pageId) => '$popularFood?pageId=$pageId';
-  static String getRecommendedFood(int pageId) =>
-      '$recommendedFood? pageId = $pageId';
+  static String getPopularFood(int pageId, String page) => '$popularFood?pageId=$pageId & page = $page';
+  static String getRecommendedFood(int pageId, String page) => '$recommendedFood? pageId = $pageId & page = $page';
   static String getCartPage() => '$cartPage';
 
   static List<GetPage> routes = [
@@ -23,8 +22,9 @@ class RouteHelper {
       name: popularFood,
       page: () {
         var pageId = Get.parameters['pageId'];
+        var page = Get.parameters['page'];
         if (pageId != null) {
-          return PopularFoodDetail(pageId: int.parse(pageId));
+          return PopularFoodDetail(pageId: int.parse(pageId), page: page!);
         } else {
           return Container();
         }
