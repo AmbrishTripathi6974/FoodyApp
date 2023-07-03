@@ -53,6 +53,7 @@ class CartController extends GetxController {
             backgroundColor: AppColors.mainColor, colorText: Colors.white);
       }
     }
+    update();
   }
 
   bool existInCart(ProductModel product) {
@@ -74,7 +75,7 @@ class CartController extends GetxController {
     return quantity;
   }
 
-  int get totalItems{
+  int get totalItems {
     var totalQuantity = 0;
     _items.forEach((key, value) {
       totalQuantity += value.quantity!;
@@ -82,9 +83,9 @@ class CartController extends GetxController {
     return totalQuantity;
   }
 
-  List<CartModel> get getItems{
-    return _items.entries.map((e){
-    return  e.value;
+  List<CartModel> get getItems {
+    return _items.entries.map((e) {
+      return e.value;
     }).toList();
   }
 }
