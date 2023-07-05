@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
-      initialRoute: RouteHelper.initial,
+      initialRoute: RouteHelper.getinitial(),
       getPages: RouteHelper.routes,
     );
   }

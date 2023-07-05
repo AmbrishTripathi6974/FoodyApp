@@ -5,6 +5,8 @@ import 'package:foody/Pages/cart/cart_page.dart';
 import 'package:foody/main.dart';
 import 'package:get/get.dart';
 
+import '../Pages/Home/main_food_page.dart';
+
 class RouteHelper {
   static const String initial = "/";
   static const String popularFood = "/popular-food";
@@ -17,7 +19,7 @@ class RouteHelper {
   static String getCartPage() => '$cartPage';
 
   static List<GetPage> routes = [
-    GetPage(name: initial, page: () => MyHomePage()),
+    GetPage(name: initial, page: () => MainFoodPage()),
     GetPage(
       name: popularFood,
       page: () {
@@ -35,8 +37,9 @@ class RouteHelper {
       name: recommendedFood,
       page: () {
         var pageId = Get.parameters['pageId'];
+        var page = Get.parameters['page'];
         if (pageId != null) {
-          return RecommendedFoodDetail(pageId: int.parse(pageId));
+          return RecommendedFoodDetail(pageId: int.parse(pageId), page: page!);
         } else {
           return Container();
         }

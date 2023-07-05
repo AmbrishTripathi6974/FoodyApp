@@ -36,7 +36,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     pageController.addListener(() {
       setState(() {
         _currentPageValue = pageController.page!;
-        print("Current Page Value is" + _currentPageValue.toString());
       });
     });
   }
@@ -44,6 +43,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   @override
   void dispose() {
     pageController.dispose();
+    super.dispose();
   }
 
   @override
