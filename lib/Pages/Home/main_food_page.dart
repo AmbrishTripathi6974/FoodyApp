@@ -139,7 +139,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style1,
+      navBarStyle: NavBarStyle.style7,
     );
   }
 }
