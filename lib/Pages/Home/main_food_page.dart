@@ -37,6 +37,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
 
   @override
   void initState() {
+    super.initState();
     super.dispose();
     _controller = PersistentTabController(initialIndex: 0);
   }
