@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:foody/Pages/Food/popular_food_detail.dart';
 import 'package:foody/Pages/Food/recommended_food_detail.dart';
 import 'package:foody/Pages/cart/cart_page.dart';
-import 'package:foody/main.dart';
 import 'package:get/get.dart';
 
 import '../Pages/Home/main_food_page.dart';

@@ -2,7 +2,6 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:foody/controllers/cart_controller.dart';
 import 'package:foody/controllers/popular_product_controller.dart';
-import 'package:foody/main.dart';
 import 'package:foody/routes/route_helper.dart';
 import 'package:foody/utils/app_constants.dart';
 import 'package:foody/utils/colors.dart';
@@ -12,7 +11,6 @@ import 'package:foody/widgets/small_text.dart';
 import 'package:get/get.dart';
 import '../../controllers/recommended_product_controller.dart';
 import '../../widgets/app_icon.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});

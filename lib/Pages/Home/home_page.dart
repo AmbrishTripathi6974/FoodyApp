@@ -8,6 +8,7 @@ import 'package:kf_drawer/kf_drawer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:foody/utils/colors.dart';
 
+// ignore: must_be_immutable
 class HomePage extends KFDrawerContent {
   @override
   _HomePageState createState() => _HomePageState();

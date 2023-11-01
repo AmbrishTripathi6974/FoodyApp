@@ -1,7 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:foody/Pages/Food/popular_food_detail.dart';
-import 'package:foody/Pages/Food/recommended_food_detail.dart';
 import 'package:foody/controllers/popular_product_controller.dart';
 import 'package:foody/controllers/recommended_product_controller.dart';
 import 'package:foody/models/products_model.dart';

@@ -5,7 +5,6 @@ import 'package:foody/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'ClassBuilder.dart';
 import 'Pages/Authentication/Auth.dart';
-import 'Pages/Home/home_page.dart';
 import 'package:kf_drawer/kf_drawer.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
     Get.find<RecommendedProductController>().getRecommendedProductList();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: const MyHomePage(),
       initialRoute: RouteHelper.getinitial(),
       getPages: RouteHelper.routes,
     );
