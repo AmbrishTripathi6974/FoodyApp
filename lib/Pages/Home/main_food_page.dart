@@ -13,6 +13,7 @@ class MainFoodPage extends StatefulWidget {
 }
 
 class _MainFoodPageState extends State<MainFoodPage> {
+  // ignore: unused_field
   int _selectedIndex = 0;
   late PersistentTabController _controller;
 
