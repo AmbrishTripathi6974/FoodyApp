@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foody/controllers/popular_product_controller.dart';
-import 'package:foody/main.dart';
 import 'package:foody/routes/route_helper.dart';
 import 'package:foody/utils/app_constants.dart';
 import 'package:foody/utils/dimension.dart';
@@ -12,8 +11,8 @@ import '../../controllers/cart_controller.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_icon.dart';
 import '../../widgets/big_text.dart';
-import '../cart/cart_page.dart';
 
+// ignore: must_be_immutable
 class PopularFoodDetail extends StatelessWidget {
   int pageId;
   final page;
