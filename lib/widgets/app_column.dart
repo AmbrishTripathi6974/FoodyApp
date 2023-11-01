@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import '../utils/colors.dart';
 import '../utils/dimension.dart';
 import 'big_text.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:foody/utils/dimension.dart';
 
+// ignore: must_be_immutable
 class BigText extends StatelessWidget {
   Color? color;
   final String text;
