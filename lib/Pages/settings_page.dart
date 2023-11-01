@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:kf_drawer/kf_drawer.dart';
 
+// ignore: must_be_immutable
 class SettingsPage extends KFDrawerContent {
   @override 
   State<SettingsPage> createState() => _SsettingPageState();
